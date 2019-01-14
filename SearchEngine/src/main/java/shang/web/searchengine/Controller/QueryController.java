@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +32,7 @@ public class QueryController {
     }
     
     @RequestMapping(value = "/search/{query}", method = RequestMethod.GET)
-    public String getUser(@PathVariable String query) {
+    public String getUser(@PathVariable String query, ModelMap map) {
     	
     	QueryProcessor qp = new QueryProcessor(pp);
     	ArrayList<String> ret = qp.topKDocs(query.replace('_', ' '), 10);
@@ -40,6 +41,8 @@ public class QueryController {
     		url = BASE_URL + url;
     		System.out.println(url);
     	}
+    	
+    	map.addAttribute("result", ret);
     	
         return "hello";
     }

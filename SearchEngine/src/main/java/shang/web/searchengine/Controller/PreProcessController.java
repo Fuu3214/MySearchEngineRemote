@@ -22,7 +22,7 @@ public class PreProcessController {
     @RequestMapping(value = "/preprocess", method = RequestMethod.GET)
     public String preprocess(HttpServletRequest request, @RequestParam(value = "name", required = false, defaultValue = "springboot-thymeleaf") String name) {
 		
-        request.setAttribute("name", name);
+        request.setAttribute("preprocess", name);
         
         PreProcess pp = new PreProcess();
         pp.computeFrom(RawPath, urlPath, GraphPath);
